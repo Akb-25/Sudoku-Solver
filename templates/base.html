@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku Board Input</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    td {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Sudoku Board Input</h2>
+
+<form method="post" action="{{ url_for('update_cell') }}">
+  <table>
+    {% for i in range(sudoku_size) %}
+      <tr>
+        {% for j in range(sudoku_size) %}
+          <td>{{ sudoku_board[i][j] }}</td>
+          {% if j % 3 == 2 and j != 8 %}
+            <td>|</td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+      {% if i % 3 == 2 and i != 8 %}
+        <tr><td colspan="9">-------------------------</td></tr>
+      {% endif %}
+    {% endfor %}
+  </table>
+  
+  <button type="submit">Update Cell</button>
+</form>
+
+</body>
+</html>

@@ -23,6 +23,26 @@ board = [
     [0, 0, 0, 0, 8, 0, 0, 7, 9]
 ]
 
+def custom_board():
+    board=[]
+    for i in range(9):
+        row=list(map(int,input(f"Enter the values for the row {i}: ").split()))
+        board.append(row)
+        print(board)
+        if not is_valid_board(board):
+            print("Invalid board as there is a repeating value")
+            print_board(board)
+            break
+
+def is_valid_board(board):
+    for row in range(9):
+        for column in range(9):
+            if board[row][column]!=0:
+                if not is_valid(row,column,board[row][column]):
+                    return False
+    return True
+
+
 def print_board(board):
     for i in range(len(board)):
         if i%3==0:
@@ -36,19 +56,24 @@ def print_board(board):
         print()
     print("-------------------------")
 
-def is_valid(x,y,n):
+
+
+def is_valid(row,column,n):
     global board
     for i in range(9):
-        if board[i][y]==n:
+        if board[i][column]==n:
+            print(f"{n}")
             return False
     for j in range(9):
-        if board[x][j]==n:
+        if board[row][j]==n:
+            print(f"{n}")
             return False
-    x_position=(x//3)*3
-    y_position=(y//3)*3
+    x_position=(row//3)*3
+    y_position=(column//3)*3
     for i in range(3):
         for j in range(3):
             if board[x_position+i][y_position+j]==n:
+                print(f"{n}")
                 return False
     return True
 
@@ -64,9 +89,10 @@ def solve():
                         board[i][j]=0
                 return 
 # board=random_numbers(board)
-print_board(board)
-if solve():
-    print("Solved")
-    print_board(board)
-else:
-    print("Not solvable")
+custom_board()
+# print_board(board)
+# if solve():
+#     print("Solved")
+#     print_board(board)
+# else:
+#     print("Not solvable")
